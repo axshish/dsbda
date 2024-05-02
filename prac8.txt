@@ -1,0 +1,41 @@
+import pandas as pd 
+import numpy as np 
+import matplotlib.pyplot as plt 
+import seaborn as sns
+**********************************************************
+df = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\train.csv')
+df.head()
+**********************************************************
+df.info()
+df.describe()
+df.dtypes
+df.isnull().sum()
+**********************************************************
+sns.displot(df['Fare'])
+
+sns.displot(df['Fare'], kde=False)
+**********************************************************
+sns.jointplot(x = 'Age', y='Fare', data=df)
+**********************************************************
+sns.pairplot(df)
+**********************************************************
+sns.rugplot(df['Fare'])
+**********************************************************
+sns.barplot(x='Sex', y='Fare', data=df)
+**********************************************************
+sns.barplot(x='Sex', y='Fare', data=df)
+**********************************************************
+sns.countplot(x='Fare', data=df)
+**********************************************************
+sns.boxplot(x='Sex', y='Age', data=df)
+**********************************************************
+sns.boxplot(x='Survived', y='Fare', data=df)
+**********************************************************
+sns.boxplot(x='Sex', y='Age', data=df, hue="Survived")
+**********************************************************
+sns.violinplot(x='Sex', y='Age', data=df, hue='Survived')
+**********************************************************
+sns.stripplot(x='Sex', y='Age', data=df)
+**********************************************************
+sns.histplot(data=df, x='Fare', y='Survived')
+**********************************************************

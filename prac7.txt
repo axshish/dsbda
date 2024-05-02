@@ -1,0 +1,77 @@
+!pip install nltk
+**************************************************************
+pip install --upgrade pip
+**************************************************************
+import nltk
+**************************************************************
+from nltk.tokenize import sent_tokenize 
+nltk.download('punkt')
+text = """Hello Mr. Smith, how are you doing today? The weather is great, and city is awesome. The sky is pinkish-blue. You shouldn't eat cardboard."""
+tokenized_text = sent_tokenize(text)
+print(tokenized_text)
+**************************************************************
+from nltk.tokenize import word_tokenize 
+tokenized_word = word_tokenize(text)
+print(tokenized_word)
+**************************************************************
+from nltk.probability import FreqDist 
+fdist = FreqDist(tokenized_word)
+print(fdist)
+**************************************************************
+ fdist.most_common(2)
+**************************************************************
+from nltk.corpus import stopwords 
+nltk.download('stopwords')
+stop_words = set(stopwords.words("english"))
+print(stop_words)
+**************************************************************
+filtered_sent=[]
+for w in tokenized_word:
+    if w not in stop_words:
+        filtered_sent.append(w)
+print("Tokenized Sentence: ", tokenized_word)
+print("Filtered sentence: ", filtered_sent)
+**************************************************************
+from nltk.stem import PorterStemmer 
+from nltk.tokenize import sent_tokenize, word_tokenize 
+
+ps = PorterStemmer()
+stemmed_words = []
+for w in filtered_sent:
+    stemmed_words.append(ps.stem(w))
+print("Filtered Sentence: ", filtered_sent)
+print("Stemmed Sentence: ", stemmed_words)    
+
+**************************************************************
+from nltk.stem.wordnet import WordNetLemmatizer 
+import nltk 
+nltk.download('wordnet')
+lem = WordNetLemmatizer()
+
+from nltk.stem.porter import PorterStemmer
+stem = PorterStemmer() 
+
+word = 'flying'
+print("Lemmatized word: ", lem.lemmatize(word, "v"))
+print("Stemmed word: ", stem.stem(word))
+
+**************************************************************
+sent = "Albert Einstein was born in Ulm, Germany in 1879"
+
+tokens = nltk.word_tokenize(sent)
+print(tokens)
+**************************************************************
+import pandas as pd 
+df = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\train.tsv', sep='\t')
+df.head()
+**************************************************************
+df.info()
+**************************************************************
+df.Sentiment.value_counts()
+**************************************************************
+from sklearn.feature_extraction.text import TfidfVectorizer 
+tf = TfidfVectorizer()
+text_tf = tf.fit_transform(df['Phrase'])
+print(text_tf)
+************************************************************
+****************************************************************

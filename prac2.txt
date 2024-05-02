@@ -1,0 +1,87 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+
+********************************************************************
+stud = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\StudentsPerformanceTest1(1).csv')
+
+********************************************************************
+stud.isnull().sum()
+
+stud
+********************************************************************
+stud['reading score'] = stud['reading score'].replace('Na',6)
+
+stud
+********************************************************************
+stud['writing score'] = stud['writing score'].fillna(stud['writing score'].mean())
+
+stud
+********************************************************************
+stud['Placement Score'] = stud['Placement Score'].fillna(stud['Placement Score'].mean())
+
+stud
+********************************************************************
+stud['Region'] = stud['Region'].replace('na','nashik')
+stud['Region'] = stud['Region'].replace('Na','pune')
+
+stud
+********************************************************************
+stud['Region']=stud['Region'].replace('NaN' ,'pune')
+
+stud
+********************************************************************
+le = LabelEncoder()
+stud['gender'] = le.fit_transform(stud['gender'])
+newstud = stud
+newstud
+********************************************************************
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+demo = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\demo1.csv')
+demo
+********************************************************************
+demo.isnull().sum()
+********************************************************************
+columns = ['math score', 'reading score', 'writing score', 'placement score']
+********************************************************************
+#BOXPLOT
+demo.boxplot(columns)
+plt.show()
+********************************************************************
+print(np.where(demo['math score']>90))
+print(np.where(demo['reading score']<25))
+print(np.where(demo['writing score']<30))
+********************************************************************
+#SCATTER-PLOT
+fig, ax = plt.subplots(figsize = (12,12))
+ax.scatter(demo['placement score'],demo['placement offer count'])
+ax.set_xlabel('(Proportion non-retail business acres)/(town)')
+ax.set_ylabel('(Full-value property-tax-rate)/($10,000)')
+plt.show()
+********************************************************************
+#Z-SCORE
+from scipy import stats
+z = np.abs(stats.zscore(demo['math score']))
+threshold = 0.20
+sample_outliers = np.where(z<threshold)
+sample_outliers
+********************************************************************
+#Handling outliers
+new_demo = demo
+for i in sample_outliers:
+    new_demo.drop(i, inplace=True)
+new_demo
+********************************************************************
+import matplotlib.pyplot as plt
+new_demo['math score'].plot(kind= 'hist')
+demo['log_math']=np.log10(demo['math score'])
+demo['log_math'].plot(kind='hist')
+plt.show()
+********************************************************************
+sns.histplot(demo['writing score'], kde =True)
+plt.show()
+********************************************************************sns.histplot(demo['math score'] ,kde=True)
+plt.show()
+

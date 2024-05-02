@@ -1,0 +1,69 @@
+import pandas as pd
+import numpy as np
+**************************************************************
+df = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\Mall_Customers.csv')
+
+df
+**************************************************************
+df['Genre'] = pd.to_numeric(df['Genre'], errors='coerce')
+mean_values = df.mean()
+print(mean_values)
+**************************************************************
+df.mode()
+**************************************************************
+df.median()
+**************************************************************
+df.loc[:,'Age'].median()
+
+**************************************************************
+df.median(axis=1)[0:4]
+********************************************************************
+df.mode()
+********************************************************
+df.loc[:,'Age'].mode()
+**************************************************************
+df.min()
+**************************************************************
+df.loc[:,'Age'].min(skipna=False)
+**************************************************************
+df.max()
+********************************************************************
+df.loc[:,'Age'].max(skipna=False)
+********************************************************
+df.std(axis=1)[0:4]
+**************************************************************
+df.groupby(['Genre'])['Age'].mean()
+
+**************************************************************
+df_u=df.rename(columns= {'Annual Income (k$)':'Income'},inplace=False)
+df_u
+
+**************************************************************
+df_u.groupby(['Genre'])['Income'].mean()
+**************************************************************
+from sklearn import preprocessing
+enc = preprocessing.OneHotEncoder()
+enc_df = pd.DataFrame(enc.fit_transform(df[['Genre']]).toarray())
+enc_df
+********************************************************************
+df_encode = df_u.join(enc_df)
+df_encode
+********************************************************
+iris = pd.read_csv('C:\\Users\\shree\\OneDrive\\Desktop\\DSBDA_Prac\\IRIS.csv')
+**************************************************************
+col_names = ['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width','Species']
+iris
+**************************************************************
+irisSet = (iris['species']=='Iris-setosa')
+print('Iris-setosa')
+print(iris[irisSet].describe())
+
+**************************************************************
+irisVer= (iris['species']=='Iris-versicolor')
+print('Iris-versicolor')
+print(iris[irisVer].describe())
+**************************************************************
+irisVir = (iris['species'] == 'Iris-virginica')
+print('Iris-virginica')
+print(iris[irisVir].describe())
+
